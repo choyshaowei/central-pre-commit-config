@@ -37,7 +37,7 @@ function install_pre_commit_hooks {
 function run_gitleaks_scan {
   echo "Running Gitleaks scan..."
   # Adjust the command as necessary. Here it scans the current repository.
-  gitleaks detect --redact || {
+  gitleaks protect --verbose --redact --staged || {
     echo "Gitleaks detected secrets. Exiting."
     exit 1
   }
