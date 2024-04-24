@@ -1,3 +1,5 @@
 #!/bin/bash
-# Path to the script might need adjustment based on your repository structure.
-../../scripts/auto-install-hooks.sh
+
+cd "$(git rev-parse --show-toplevel)"
+
+./scripts/auto-install-hooks.sh
