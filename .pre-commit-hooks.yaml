@@ -1,0 +1,7 @@
+- id: gitleaks
+  name: Gitleaks Secret Scanner
+  description: "Scan for secrets in your code."
+  entry: ./scripts/auto-install-hook.sh'
+  language: script
+  pass_filenames: false
+  types: [text]
