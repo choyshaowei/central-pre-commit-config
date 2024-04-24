@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Function to check if Gitleaks is installed
+# Function to check if Gitleaks is installed and install if it's not
 function check_gitleaks_installed {
   if ! command -v gitleaks &>/dev/null; then
     echo "Gitleaks is not installed. Attempting to install..."
@@ -13,17 +13,7 @@ function check_gitleaks_installed {
   fi
 }
 
-# Function to run Gitleaks scan
-function run_gitleaks_scan {
-  echo "Running Gitleaks scan..."
-  # Adjust the command as necessary. Here it scans the current repository.
-  gitleaks detect --redact || {
-    echo "Gitleaks detected secrets. Exiting."
-    exit 1
-  }
-}
-
-# Function to check if pre-commit is installed
+# Function to check if pre-commit is installed and install if it's not
 function check_pre_commit_installed {
   if ! command -v pre-commit &>/dev/null; then
     echo "pre-commit is not installed. Attempting to install..."
@@ -43,10 +33,20 @@ function install_pre_commit_hooks {
   }
 }
 
+# Function to run Gitleaks scan
+function run_gitleaks_scan {
+  echo "Running Gitleaks scan..."
+  # Adjust the command as necessary. Here it scans the current repository.
+  gitleaks detect --redact || {
+    echo "Gitleaks detected secrets. Exiting."
+    exit 1
+  }
+}
+
 # Main script execution
-check_gitleaks_installed
-run_gitleaks_scan
 check_pre_commit_installed
+check_gitleaks_installed
 install_pre_commit_hooks
+run_gitleaks_scan
 
 echo "Pre-commit hooks and Gitleaks scan completed successfully."
